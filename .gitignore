@@ -60,3 +60,10 @@ staticfiles/
 *.pyd
 *.swp
 *.swo
+
+# Local environments and generated files
+.venv/
+project_venv/
+node_modules/
+!.env.example
+!.env.sample

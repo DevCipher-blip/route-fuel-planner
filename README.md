@@ -1,15 +1,12 @@
-# Fuel Optimized Route Planner (Django + OpenRouteService)
+# Fuel-stop route planner
 
-This project is a Django REST API that calculates an optimized
-driving route between two locations and determines cost efficient fuel
-stops along the route based on:
+## Inputs, route, fuel stops
 
--   Vehicle fuel efficiency (MPG)
--   Tank range
--   Fuel station prices (loaded from CSV)
--   Real driving routes from OpenRouteService (ORS)
+The route-planning workflow combines directions from OpenRouteService with fuel-stop selection. Read the existing API example together with the view and route/fuel calculations before changing the optimization rules.
 
-------------------------------------------------------------------------
+A provider response can be incomplete or unavailable, so invalid coordinates, a route with no usable stations, and a provider timeout are valuable examples. Document assumptions about distance, vehicle range, and fuel-price data; the result is only as current as those inputs.
+
+For persistent Django sessions, supply `DJANGO_SECRET_KEY` (or `SECRET_KEY`) in the process environment. Local development uses a fresh temporary signing key when neither is set.
 
 ## Features
 
@@ -42,12 +39,12 @@ stops along the route based on:
 
 ### macOS / Linux
 
-python -m venv venv 
+python -m venv venv
 source venv/bin/activate
 
 ### Windows
 
-python -m venv venv 
+python -m venv venv
 venv\Scripts\activate
 
 ------------------------------------------------------------------------
@@ -129,7 +126,3 @@ Request Body:
 Response Example:
 
 { "route": \[\[lat, lng\], ...\], "fuel_stops": \[ { "station_name": "Exxon", "latitude": 39.7392, "longitude": -104.9903, "price_per_gallon": 4.58 } \], "total_distance_miles": 2794.41, "total_fuel_cost": 1075.25 }
-
-
-
-
